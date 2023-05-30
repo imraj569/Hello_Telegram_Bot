@@ -40,8 +40,8 @@ To use Hello_Telegram_Bot, you will need:
 4. Open the `main.pyw` file and locate the following lines:
 
    ```python
-   audio_file_path = "D:\\Automation Python\\recorded_audio.wav"
-   screenshot_file_path = "D:\\Automation Python\\screenshot.png"
+   audio_file_path = "D:\\Hello_Telegram_Bot\\recorded_audio.wav"
+   screenshot_file_path = "D:\\Hello_Telegram_Bot\\screenshot.png"
    ```
 
    Replace the file paths with the appropriate paths for your system. Make sure to escape any backslashes (`\`) in the path with an additional backslash (`\\`).
