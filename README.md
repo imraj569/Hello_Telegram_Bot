@@ -28,7 +28,7 @@ To use Hello_Telegram_Bot, you will need:
    pip install -r requirements.txt
    ```
 
-3. Open the `.env` replacing the values with your own:
+3. create and Open the `.env` replacing the values with your own:
 
    ```plaintext
    BOT_TOKEN=your_bot_token
