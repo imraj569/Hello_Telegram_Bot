@@ -16,7 +16,7 @@ To use Hello_Telegram_Bot, you will need:
 - A Telegram account.
 - A Telegram bot token. (You can obtain this by creating a new bot using the BotFather on Telegram)
 - The chat ID of the user or group you want the bot to reply to.
-- Modify the file paths in the `hellobot.pyw` script.
+- Modify the file paths in the `hellobot.pyw` and `main.pyw` scripts
 
 ## Installation ⚙️
 
@@ -28,9 +28,7 @@ To use Hello_Telegram_Bot, you will need:
    pip install -r requirements.txt
    ```
 
-3. Create a file named `.env` in the root directory.
-
-4. Open the `.env` file and add the following lines, replacing the values with your own:
+3. Open the `.env` replacing the values with your own:
 
    ```plaintext
    BOT_TOKEN=your_bot_token
@@ -39,7 +37,7 @@ To use Hello_Telegram_Bot, you will need:
 
    Replace `your_bot_token` with your Telegram bot token and `your_chat_id` with the chat ID to which the bot should reply.
 
-5. Open the `main.pyw` file and locate the following lines:
+4. Open the `main.pyw` file and locate the following lines:
 
    ```python
    audio_file_path = "D:\\Automation Python\\recorded_audio.wav"
@@ -48,14 +46,15 @@ To use Hello_Telegram_Bot, you will need:
 
    Replace the file paths with the appropriate paths for your system. Make sure to escape any backslashes (`\`) in the path with an additional backslash (`\\`).
 
-6. Save the changes to the `main.pyw` file.
+5. Save the changes to the `main.pyw` file.
 
-7. Copy the `hellobot.pyw` file and paste it into the Windows startup folder. type `win+r` in your pc and type `shell:startup` and press enter now past the `hellobot.pyw` to here
+6. Copy the `hellobot.pyw` file and paste it into the Windows startup folyou by type `win+r` in your pc it open run command type `shell:startup` and press enter now past the `hellobot.pyw` to here
+
 ## Usage 🚀
 
-1. Run the bot by restart your pc the script automatically run after restart
+1. Run the bot by restart your pc the script automatically run after restart.
 
-2. Start a conversation with your bot on Telegram.
+2. Start a conversation with your bot on Telegram chat by sending `/start` command.
 
 3. Send commands to control your PC:
 
@@ -63,7 +62,7 @@ To use Hello_Telegram_Bot, you will need:
    - To start an audio recording, send the command `/record`.
    - To shut down your PC, send the command `/shutdown`.
 
-4. The bot will execute the requested action and send the result back to your Telegram chat.
+4. The bot will execute the requested action and send the result back to your Telegram bot.
 
 ## Security Considerations 🔒
 
@@ -72,9 +71,6 @@ Hello_Telegram_Bot is designed to reply only to the chat ID provided
  in the `.env` file. This helps minimize security risks. However, it is still important to take additional security measures:
 
 - Keep your bot token and `.env` file secret and avoid sharing them with unauthorized individuals.
-- Consider running the bot on a secure and trusted machine.
-- Regularly update your operating system and software to prevent vulnerabilities.
-- Review the source code and understand the commands before using the bot.
 
 ## Restart and Crash Recovery 🔄
 
@@ -86,7 +82,7 @@ The Hello_Telegram_Bot project is provided as-is, without any warranty or liabil
 
 ## Contribution 🤝
 
-Contributions to Hello_Telegram_Bot are welcome! If you encounter any issues or have ideas for new features, feel free to submit a pull request or open an issue on the [GitHub repository](https://github.com/yourusername/Hello_Telegram_Bot).
+Contributions to Hello_Telegram_Bot are welcome! If you encounter any issues or have ideas for new features, feel free to submit a pull request or open an issue on the [GitHub repository](https://github.com/imraj569/Hello_Telegram_Bot).
 
 ## License 📄
 
@@ -94,4 +90,4 @@ Hello_Telegram_Bot is released under the [MIT License](https://opensource.org/li
 
 ---
 
-Thank you for using Hello_Telegram_Bot! We hope this bot simplifies your remote PC control tasks. If you have any questions or need assistance, please don't hesitate to reach out on the GitHub repository or contact the bot's creator.
+Thank you for using Hello_Telegram_Bot! We hope this bot simplifies your remote PC control tasks. If you have any questions or need assistance, please don't hesitate to reach out on the GitHub repository or contact the bot's creator on [instagram](https://instagram.com/im.raj.569?igshid=ZGUzMzM3NWJiOQ==).
