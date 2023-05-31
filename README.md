@@ -1,6 +1,8 @@
 # Hello_Telegram_Bot 💻📱
 
 Hello_Telegram_Bot is a versatile Telegram bot that allows you to remotely control your PC using simple commands from your Telegram chat. With this bot, you can conveniently capture screenshots 🖼️, record audio 🎙️, and even shut down your PC remotely 🚀, all through the power of Telegram.
+## Screenshot 📸
+<img align="center" alt="Coding" width="200" src="https://github.com/imraj569/InstaLoader/assets/53007802/4a5f115a-0c40-4af7-b213-baa35e00e6e6">
 
 ## Features 🚀
 
