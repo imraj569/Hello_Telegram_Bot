@@ -1,4 +1,0 @@
-pyTelegramBotAPI
-PyAudio
-PyAutoGUI
-python-dotenv
