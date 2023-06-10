@@ -1,0 +1,4 @@
+pyTelegramBotAPI
+PyAudio
+PyAutoGUI
+pyperclip
