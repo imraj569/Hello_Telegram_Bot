@@ -9,7 +9,7 @@ import pyperclip
 
 # Retrieve bot token and chat ID from environment variables
 BOT_TOKEN = "your_bot_token"
-CHAT_ID = "your_chatid"
+CHAT_ID = "your_chat_id"
 
 # Set up your Telegram bot using the API token
 bot = telebot.TeleBot(BOT_TOKEN)
