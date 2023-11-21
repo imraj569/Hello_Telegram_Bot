@@ -1,45 +1,52 @@
-import telebot
+#This bot helps you to control your pc from anywhere through telegram
+#You can modify anything but please give cradit if any use.
+#Author - Rajkishor Patra
+#Version - 2.0
+#-------------------------------------------------------------------------
 import pyaudio 
 import wave
-import os 
+import telebot
+import os
+import webbrowser
 import random
 import pyautogui
-import time  
+import time
 import pyperclip
 
-# Retrieve bot token and chat ID from environment variables
 BOT_TOKEN = "your_bot_token"
 CHAT_ID = "your_chat_id"
 
-# Set up your Telegram bot using the API token
 bot = telebot.TeleBot(BOT_TOKEN)
 
-# Handler for unhandled exceptions
 def handle_exception(e):
     time.sleep(5)
-    main()  
+    main()
 
-# Set up error handling
 def setup_error_handlers():
     for attr in dir(telebot.apihelper):
         if attr.endswith('_handler'):
             getattr(telebot.apihelper, attr)(handle_exception)
 
-# Main function
 def main():
     setup_error_handlers()
+    send_welcome_message()
     bot.polling()
+    
+def send_welcome_message():
+    # Add your welcome message here
+    welcome_message = "🐈Hello Bot is now online🌐 and connected✅🚀"
+    bot.send_message(CHAT_ID, welcome_message)
 
 @bot.message_handler(commands=['start'])
 def handle_start_command(message):
     if str(message.chat.id) == CHAT_ID:
-        bot.send_message(CHAT_ID, random.choice(["access granted..✅", "connection build successfully..✅","connected...✅"]))
+        bot.send_message(CHAT_ID, random.choice(["Access Granted..✅", "Connection build successfully..✅","Connected...✅"]))
     else:
         bot.send_message(message.chat.id, "You are not authorized to use this bot.")
 
 # Define constants
 username = os.getlogin()
-RECORDED_AUDIO_PATH = f'C:\\Users\\{username}\\Downloads\\recorded_audio.wav'
+RECORDED_AUDIO_PATH = 'audio.wav'
 CHUNK = 1024
 FORMAT = pyaudio.paInt16
 CHANNELS = 1
@@ -106,7 +113,6 @@ def record_audio(duration):
 def send_audio(chat_id):
     with open(RECORDED_AUDIO_PATH, 'rb') as audio_file:
         bot.send_audio(chat_id, audio_file)
-
     # Delete the wave file after sending
     os.remove(RECORDED_AUDIO_PATH)
      
@@ -124,22 +130,18 @@ def handle_screenshot_command(message):
     else:
         bot.send_message(message.chat.id, "You are not authorized to use this bot.")
 
-# Implement the capture_screenshot() function to capture the screen
 def capture_screenshot():
     screenshot = pyautogui.screenshot()
     return screenshot
 
 def send_screenshot(chat_id, screenshot):
     username = os.getlogin()
-    screenshot_path = f'C:\\Users\\{username}\\Downloads\\screenshot.png'
+    screenshot_path = 'screenshot.png'
     screenshot.save(screenshot_path)
     screenshot_file = open(screenshot_path, 'rb')
     bot.send_photo(chat_id, screenshot_file)
     screenshot_file.close()
     os.remove(screenshot_path)
-
-def shutdown_pc():
-    os.system("shutdown /s /t 5")
 
 @bot.message_handler(commands=['shutdown'])
 def handle_shutdown_command(message):
@@ -149,30 +151,36 @@ def handle_shutdown_command(message):
     else:
         bot.send_message(message.chat.id, "You are not authorized to use this bot.")
 
+def shutdown_pc():
+    os.system("shutdown /s /t 5")
+
 def handle_shutdown_confirmation(message):
     if str(message.chat.id) == CHAT_ID:
         confirmation = message.text.strip().lower()
         if confirmation == "yes":
-            bot.send_message(CHAT_ID, "⚠️ Shutting down the PC in 5 second...")
+            bot.send_message(CHAT_ID, "⚠️ Shutting down the PC in 5 seconds...")
             shutdown_pc()
         else:
             bot.send_message(CHAT_ID, "⛔️ Shutdown cancelled.")
     else:
         bot.send_message(message.chat.id, "You are not authorized to use this bot.")
 
-@bot.message_handler(commands=['copy'])
-def handle_copy_command(message):
+@bot.message_handler(func=lambda message: True)
+def handle_text_message(message):
     if str(message.chat.id) == CHAT_ID:
-        bot.send_message(CHAT_ID, "📋 Please paste the text you want to copy.")
-        bot.register_next_step_handler(message, handle_paste_text)
-    else:
-        bot.send_message(message.chat.id, "You are not authorized to use this bot.")
+        # Check if the message is a URL
+        if message.text.startswith("http://") or message.text.startswith("https://"):
+            url = message.text
+            webbrowser.open(url)
+            bot.send_message(message.chat.id,"Url Opened 🌐✅")
 
-def handle_paste_text(message):
-    if str(message.chat.id) == CHAT_ID:
-        text = message.text.strip()
-        pyperclip.copy(text)
-        bot.send_message(CHAT_ID, "✅ Text copied to clipboard.")
+        elif message.text.startswith("/"):
+            pass
+
+        else:
+            # Copy the text to clipboard
+            pyperclip.copy(message.text)
+            bot.send_message(CHAT_ID, "✅Text copied to clipboard.📋")
     else:
         bot.send_message(message.chat.id, "You are not authorized to use this bot.")
 
@@ -181,4 +189,4 @@ if __name__ == "__main__":
         try:
             main()
         except Exception as e:
-            time.sleep(5)
+            time.sleep(2)
