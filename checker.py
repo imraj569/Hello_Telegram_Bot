@@ -1,3 +1,9 @@
+
+
+'''
+This script check the main.pyw file is running or not if not running it can
+run this and also able to start the main.pyw file.
+'''
 import psutil , os ,time
 
 def check_script_running(script_name):
