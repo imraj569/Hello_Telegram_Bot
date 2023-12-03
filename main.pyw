@@ -2,20 +2,40 @@
 #You can modify anything but please give cradit if any use.
 #Author - Rajkishor Patra
 #Version - 2.0
-#-------------------------------------------------------------------------
+'''
+------------------------------------------------------------------
+                *Feactures*
+------------------------------------------------------------------
+/screenshot - take screenshot
+/record - record audio in a given time limit 
+/lock - lock pc screen
+/shutdown - shutdown the pc
+------------------------------------------------------------------
+            *additional feactures*
+------------------------------------------------------------------
+>it can copy any text that you directly sended to it 
+except the texts start with /
+ex-
+/hello ❌
+hello ✅
+
+>it can detect urls and open ask before open a url on your defult pc 
+browser.
+'''
+#-----------------------------------------------------------------
 import pyaudio 
 import wave
 import telebot
-import os
+import os,subprocess
 import webbrowser
 import random
 import pyautogui
 import time
 import pyperclip
+from telebot import types
 
-BOT_TOKEN = "your_bot_token"
-CHAT_ID = "your_chat_id"
-
+BOT_TOKEN = "YOUR_BOT_TOKEN"
+CHAT_ID = "YOUR_CHAT_ID"
 bot = telebot.TeleBot(BOT_TOKEN)
 
 def handle_exception(e):
@@ -165,24 +185,49 @@ def handle_shutdown_confirmation(message):
     else:
         bot.send_message(message.chat.id, "You are not authorized to use this bot.")
 
+@bot.message_handler(commands=['lock'])
+def handle_lock_command(message):
+    if str(message.chat.id) == CHAT_ID:
+        bot.send_message(CHAT_ID, "Pc is Locked🔐")
+        subprocess.run(["rundll32.exe", "user32.dll,LockWorkStation"])
+
+    else:
+        bot.send_message(message.chat.id, "You are not authorized to use this bot.")
+
 @bot.message_handler(func=lambda message: True)
 def handle_text_message(message):
     if str(message.chat.id) == CHAT_ID:
-        # Check if the message is a URL
-        if message.text.startswith("http://") or message.text.startswith("https://"):
-            url = message.text
-            webbrowser.open(url)
-            bot.send_message(message.chat.id,"Url Opened 🌐✅")
+        # Remove blank lines from the message text
+        cleaned_text = "\n".join(line for line in message.text.splitlines() if line.strip())
 
-        elif message.text.startswith("/"):
+        if cleaned_text.startswith("http://") or cleaned_text.startswith("https://"):
+            # If the cleaned text is a URL, ask the user if they want to open it
+            url = cleaned_text
+            markup = types.ReplyKeyboardMarkup(row_width=2)
+            item_yes = types.KeyboardButton('Yes')
+            item_no = types.KeyboardButton('No')
+            markup.add(item_yes, item_no)
+            bot.send_message(message.chat.id, f"Do you want to open the URL:\n{url}?", reply_markup=markup)
+            bot.register_next_step_handler(message, handle_url_decision, url)
+
+        elif cleaned_text.startswith("/"):
             pass
 
         else:
-            # Copy the text to clipboard
-            pyperclip.copy(message.text)
+            # Copy the cleaned text to clipboard
+            pyperclip.copy(cleaned_text)
             bot.send_message(CHAT_ID, "✅Text copied to clipboard.📋")
     else:
         bot.send_message(message.chat.id, "You are not authorized to use this bot.")
+
+def handle_url_decision(message, url):
+    if message.text.lower() == 'yes':
+        webbrowser.open(url)
+        bot.send_message(message.chat.id, "Url Opened 🌐✅")
+    elif message.text.lower() == 'no':
+        bot.send_message(message.chat.id, "URL not opened.")
+    else:
+        bot.send_message(message.chat.id, "Invalid response. Please type 'Yes' or 'No'.")
 
 if __name__ == "__main__":
     while True:

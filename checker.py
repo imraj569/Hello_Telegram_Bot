@@ -22,7 +22,7 @@ def checker():
         print(f"The script '{script_name}' is not running in backgroud.")
         ab = input("do i run main.pyw [yes/no]:")
         if "yes" in ab:
-            os.startfile("D:\\hello\\main.pyw")
+            os.startfile("main.pyw")
             print("main.pyw started...")
         else:
             print("as your wish")
@@ -61,7 +61,7 @@ def controler():
             print(f"The script '{script_name}' is not running in background.")
             a = input("do i start main.pyw [yes/no]:")
             if "yes" in a:
-                os.startfile("D:\\hello\\main.pyw")
+                os.startfile("main.pyw")
                 print("main.pyw started...")
             else:
                 print("as your wish")
